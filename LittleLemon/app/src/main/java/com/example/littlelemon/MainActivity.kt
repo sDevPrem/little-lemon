@@ -8,13 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.littlelemon.data.PreferenceRepository
 import com.example.littlelemon.ui.theme.app.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val preferenceRepository = PreferenceRepository(this.applicationContext)
         setContent {
             AppTheme {
                 // A surface container using the 'background' color from the theme
@@ -23,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navHostController = rememberNavController()
-                    Navigation(navHostController = navHostController)
+                    Navigation(navHostController = navHostController, preferenceRepository)
                 }
             }
         }
@@ -41,7 +44,10 @@ fun GreetingPreview() {
             color = MaterialTheme.colorScheme.background
         ) {
             val navHostController = rememberNavController()
-            Navigation(navHostController = navHostController)
+            Navigation(
+                navHostController = navHostController,
+                PreferenceRepository(LocalContext.current)
+            )
         }
     }
 }

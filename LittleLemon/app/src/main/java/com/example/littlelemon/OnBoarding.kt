@@ -38,13 +38,12 @@ import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OnBoarding(navController: NavController) {
+fun OnBoarding(navController: NavController, preferenceRepository: PreferenceRepository) {
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val preferenceRepository = PreferenceRepository(context)
 
     Column(
         modifier = Modifier
@@ -144,6 +143,14 @@ fun OnBoarding(navController: NavController) {
                                     context.getString(R.string.on_boarding_registration_successful_msg),
                                     Toast.LENGTH_SHORT
                                 ).show()
+
+                                //remove the login screen from the backstack
+                                //so if the user press the back button on home screen
+                                //than app should exit instead of taking the user back
+                                //to the login screen
+                                navController.popBackStack()
+
+                                //navigate to the home screen
                                 navController.navigate(Destinations.Home.getRoute())
                             } else
                             //user not saved. Tell the user to try again.
@@ -178,5 +185,9 @@ fun OnBoarding(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun OnBoardingPreview() {
-    OnBoarding(navController = rememberNavController())
+    OnBoarding(
+        navController = rememberNavController(), preferenceRepository = PreferenceRepository(
+            LocalContext.current
+        )
+    )
 }
