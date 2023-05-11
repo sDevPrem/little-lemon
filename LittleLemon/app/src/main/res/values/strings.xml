@@ -9,7 +9,8 @@
     <string name="on_boarding_form_last_name_label">Last name</string>
     <string name="on_boarding_form_email_label">Email</string>
     <string name="on_boarding_form_register_btn_txt">Register</string>
-    <string name="registration_successful_msg">Registration successful!</string>
-    <string name="registration_unsuccessful_msg">Registration unsuccessful. Please enter all data.</string>
+    <string name="on_boarding_registration_successful_msg">Registration successful!</string>
+    <string name="on_boarding_registration_unsuccessful_msg">Registration unsuccessful! Please try again.</string>
+    <string name="on_boarding_invalid_user_input">Registration unsuccessful. Please enter all data.</string>
 
 </resources>
