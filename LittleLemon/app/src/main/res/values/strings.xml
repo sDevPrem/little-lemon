@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">LittleLemon</string>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - -
+    - - - - - - -  Used By OnBoarding - - - - - - - -
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="on_boarding_title">Let\'s get to know you</string>
+    <string name="on_boarding_sub_title">Personal Information</string>
+    <string name="on_boarding_form_first_name_label">First name</string>
+    <string name="on_boarding_form_last_name_label">Last name</string>
+    <string name="on_boarding_form_email_label">Email</string>
+    <string name="on_boarding_form_register_btn_txt">Register</string>
+    <string name="registration_successful_msg">Registration successful!</string>
+    <string name="registration_unsuccessful_msg">Registration unsuccessful. Please enter all data.</string>
+
 </resources>
