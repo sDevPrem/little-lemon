@@ -29,15 +29,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.littlelemon.data.PreferenceRepository
+import com.example.littlelemon.data.model.User
 import com.example.littlelemon.ui.theme.app.AppTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OnBoarding(navController: NavController){
-    var firstName by rememberSaveable{ mutableStateOf("") }
+fun OnBoarding(navController: NavController, preferenceRepository: PreferenceRepository) {
+    var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -49,8 +55,7 @@ fun OnBoarding(navController: NavController){
                 .align(Alignment.CenterHorizontally)
                 .height(80.dp)
                 .fillMaxWidth()
-                .padding(vertical = 16.dp, horizontal = 32.dp)
-            ,
+                .padding(vertical = 16.dp, horizontal = 32.dp),
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Little lemon logo",
         )
@@ -116,19 +121,54 @@ fun OnBoarding(navController: NavController){
 
         Button(
             onClick = {
-                      if(
-                          firstName.isNotBlank() &&
-                          lastName.isNotBlank() &&
-                          email.isNotBlank()
-                      ) {
-                          Toast.makeText(context, context.getString(R.string.registration_successful_msg), Toast.LENGTH_SHORT)
-                              .show()
-                          navController.navigate(Destinations.Home.getRoute())
-                      }else Toast.makeText(
-                          context,
-                          context.getString(R.string.registration_unsuccessful_msg),
-                          Toast.LENGTH_LONG
-                      ).show()
+                if (
+                    firstName.isNotBlank() &&
+                    lastName.isNotBlank() &&
+                    email.isNotBlank()
+                ) {
+                    coroutineScope.launch {
+                        //save the user
+                        val isUserSaved = preferenceRepository.saveUser(
+                            User(
+                                firstName,
+                                lastName,
+                                email
+                            )
+                        )
+                        withContext(Dispatchers.Main) {
+                            if (isUserSaved) {
+                                //if user saved successfully than navigate to home
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.on_boarding_registration_successful_msg),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                //remove the login screen from the backstack
+                                //so if the user press the back button on home screen
+                                //than app should exit instead of taking the user back
+                                //to the login screen
+                                navController.popBackStack()
+
+                                //navigate to the home screen
+                                navController.navigate(Destinations.Home.getRoute())
+                            } else
+                            //user not saved. Tell the user to try again.
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.on_boarding_registration_unsuccessful_msg),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                        }
+                    }
+                }
+                //user didn't fill up all the form fields
+                //so tell him to fill all the fields
+                else Toast.makeText(
+                    context,
+                    context.getString(R.string.on_boarding_invalid_user_input),
+                    Toast.LENGTH_LONG
+                ).show()
 
             },
             modifier = Modifier
@@ -145,5 +185,9 @@ fun OnBoarding(navController: NavController){
 @Preview(showBackground = true)
 @Composable
 fun OnBoardingPreview() {
-    OnBoarding(navController = rememberNavController())
+    OnBoarding(
+        navController = rememberNavController(), preferenceRepository = PreferenceRepository(
+            LocalContext.current
+        )
+    )
 }
