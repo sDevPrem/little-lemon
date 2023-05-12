@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -53,9 +54,10 @@ fun ProfileUI(user: User?, logOut: () -> Unit) {
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "little lemon logo",
             modifier = Modifier
-                .padding(24.dp, 16.dp)
+                .padding(vertical = 16.dp, horizontal = 32.dp)
+                .align(Alignment.CenterHorizontally)
+                .height(80.dp)
                 .fillMaxWidth()
-                .height(100.dp)
         )
         Text(
             text = stringResource(R.string.user_profile_title),
