@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -21,22 +23,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.littlelemon.data.model.User
 import com.example.littlelemon.ui.theme.app.AppTheme
 import com.example.littlelemon.viewmodel.ProfileVM
 
 @Composable
-fun ProfileScreen(profileVm: ProfileVM = viewModel()) {
+fun ProfileScreen(navController: NavController, profileVm: ProfileVM = viewModel()) {
     val user by profileVm.user.collectAsStateWithLifecycle()
-    ProfileUI(user = user)
+    ProfileUI(user = user) {
+        profileVm.logOut()
+
+        //remove Profile and Home screen from the backstack
+        //and navigate to on board screen
+        navController.popBackStack(Destinations.Home.getRoute(), true)
+        navController.navigate(Destinations.OnBoard.getRoute())
+    }
 }
 
 @Composable
-fun ProfileUI(user: User?) {
+fun ProfileUI(user: User?, logOut: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp, 0.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         Image(
             painter = painterResource(id = R.drawable.logo),
@@ -66,12 +77,13 @@ fun ProfileUI(user: User?) {
         UserInfoLabel(label = stringResource(R.string.user_profile_email_label))
         UserInfoText(info = user?.email ?: "")
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { },
+            onClick = { logOut() },
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(0.dp, 16.dp),
             colors = ButtonDefaults.filledTonalButtonColors(containerColor = AppTheme.color.primary2),
             shape = MaterialTheme.shapes.medium
         ) {
@@ -83,7 +95,9 @@ fun ProfileUI(user: User?) {
 @Composable
 @Preview(showBackground = true)
 fun ProfileScreenPreview() {
-    ProfileUI(User("Prem", "Thakur", "prem@example.com"))
+    ProfileUI(
+        User("Prem", "Thakur", "prem@example.com")
+    ) {}
 }
 
 @Composable
