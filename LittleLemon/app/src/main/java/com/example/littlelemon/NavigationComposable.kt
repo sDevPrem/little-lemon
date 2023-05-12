@@ -20,7 +20,7 @@ fun Navigation(navHostController: NavHostController, preferenceRepository: Prefe
             OnBoarding(navHostController, preferenceRepository)
         }
         composable(route = Destinations.Home.getRoute()) {
-            HomeScreen()
+            HomeScreen(navHostController)
         }
         composable(route = Destinations.Profile.getRoute()) {
             ProfileScreen()
