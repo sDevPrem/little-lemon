@@ -3,11 +3,14 @@ package com.example.littlelemon.data
 import android.content.Context
 import com.example.littlelemon.data.model.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class PreferenceRepository(
-    private val context: Context
+    context: Context
 ) {
+    private val userPref =
+        context.getSharedPreferences(USER_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
     companion object {
         const val USER_PREFERENCE_FILE_KEY = "user_preference_file"
 
@@ -18,10 +21,7 @@ class PreferenceRepository(
     }
 
     suspend fun saveUser(user: User): Boolean = withContext(Dispatchers.IO) {
-        val sharedPref =
-            context.getSharedPreferences(USER_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
-                ?: return@withContext false
-        with(sharedPref.edit()) {
+        with(userPref.edit()) {
 
             putString(USER_FIRST_NAME, user.firstName)
             putString(USER_LAST_NAME, user.lastName)
@@ -36,9 +36,23 @@ class PreferenceRepository(
     }
 
     fun isUserLoggedIn(): Boolean {
-        val sharedPref =
-            context.getSharedPreferences(USER_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
-                ?: return false
-        return sharedPref.getBoolean(IS_USER_LOGGED_IN, false)
+        return userPref.getBoolean(IS_USER_LOGGED_IN, false)
+    }
+
+    fun getUser() = flow {
+        emit(
+            User(
+                firstName = userPref.getString(USER_FIRST_NAME, "") ?: return@flow,
+                lastName = userPref.getString(USER_LAST_NAME, "") ?: return@flow,
+                email = userPref.getString(USER_EMAIL, "") ?: return@flow
+            )
+        )
+    }
+
+    suspend fun clearUser(): Boolean = withContext(Dispatchers.IO) {
+        with(userPref.edit()) {
+            clear()
+            return@with commit()
+        }
     }
 }

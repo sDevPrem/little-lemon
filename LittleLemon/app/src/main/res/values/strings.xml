@@ -13,4 +13,13 @@
     <string name="on_boarding_registration_unsuccessful_msg">Registration unsuccessful! Please try again.</string>
     <string name="on_boarding_invalid_user_input">Registration unsuccessful. Please enter all data.</string>
 
+    <!-- - - - - - - - - - - - - - - - - - - - - - - -
+    - - - - - - -  Used By ProfileScreen - - - - - - - -
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="user_profile_first_name_label">First Name</string>
+    <string name="user_profile_last_name_label">Last name</string>
+    <string name="user_profile_email_label">Email</string>
+    <string name="user_profile_title">Personal information</string>
+    <string name="user_profile_log_out_btn_txt">Log out</string>
+
 </resources>
