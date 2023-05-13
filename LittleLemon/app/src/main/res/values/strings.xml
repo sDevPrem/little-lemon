@@ -22,4 +22,20 @@
     <string name="user_profile_title">Personal information</string>
     <string name="user_profile_log_out_btn_txt">Log out</string>
 
+    <!-- - - - - - - - - - - - - - - - - - - - - - - -
+    - - - - - - -  Used By HomeScreen - - - - - - - -
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="menu_item_loading_error_msg">Oops! Something went wrong</string>
+    <string name="menu_item_reload_btn_txt">Retry</string>
+    <string name="home_hero_section_title">Little Lemon</string>
+    <string name="home_hero_section_subtitle">Chicago</string>
+    <string name="home_hero_section_about">We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</string>
+    <string name="home_search_bar_hint">Search Food Items</string>
+    <string name="home_menu_break_down_title">Order for delivery</string>
+    <string name="starters_category_label">Starters</string>
+    <string name="mains_category_label">Mains</string>
+    <string name="desserts_category_label">Desserts</string>
+    <string name="slides_category_label">Slides</string>
+    <string name="menu_item_price">$ %1s</string>
+
 </resources>
