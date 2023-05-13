@@ -78,6 +78,8 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
 
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
+
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.activity:activity-compose:1.5.1'
     implementation platform('androidx.compose:compose-bom:2022.10.00')

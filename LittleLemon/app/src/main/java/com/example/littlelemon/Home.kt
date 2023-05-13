@@ -49,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.littlelemon.data.model.MenuItem
 import com.example.littlelemon.data.model.util.Result
 import com.example.littlelemon.ui.theme.app.AppTheme
@@ -79,8 +81,7 @@ fun HomeScreenUI(
     ) {
         item(
             key = "header"
-        )
-        {
+        ) {
             Column {
                 NavBar(navigateToProfile)
                 Spacer(modifier = Modifier.height(8.dp))
@@ -314,6 +315,7 @@ fun CategoryItem(text: String) {
     )
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun MenuItem(item: MenuItem) {
     Column(
@@ -345,12 +347,13 @@ fun MenuItem(item: MenuItem) {
                     style = AppTheme.typography.leadText
                 )
             }
-            Image(
-                painter = painterResource(id = R.drawable.bruschetta),
+            GlideImage(
+                model = item.image,
                 contentDescription = "Food Image",
                 modifier = Modifier
-                    .size(60.dp)
-                    .clip(MaterialTheme.shapes.medium)
+                    .size(80.dp)
+                    .clip(MaterialTheme.shapes.medium),
+                contentScale = ContentScale.Crop
             )
         }
         Divider(
