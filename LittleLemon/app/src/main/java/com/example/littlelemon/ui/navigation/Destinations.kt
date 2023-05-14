@@ -1,4 +1,4 @@
-package com.example.littlelemon
+package com.example.littlelemon.ui.navigation
 
 sealed interface Destinations{
     fun getRoute() : String

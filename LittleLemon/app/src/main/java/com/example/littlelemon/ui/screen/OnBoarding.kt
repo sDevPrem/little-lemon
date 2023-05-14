@@ -1,4 +1,4 @@
-package com.example.littlelemon
+package com.example.littlelemon.ui.screen
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -29,8 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.littlelemon.R
 import com.example.littlelemon.data.PreferenceRepository
 import com.example.littlelemon.data.model.User
+import com.example.littlelemon.ui.navigation.Destinations
 import com.example.littlelemon.ui.theme.app.AppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

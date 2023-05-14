@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.littlelemon.data.PreferenceRepository
+import com.example.littlelemon.ui.navigation.Navigation
 import com.example.littlelemon.ui.theme.app.AppTheme
 
 class MainActivity : ComponentActivity() {

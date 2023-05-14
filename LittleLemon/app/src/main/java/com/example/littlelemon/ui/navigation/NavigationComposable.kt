@@ -1,10 +1,13 @@
-package com.example.littlelemon
+package com.example.littlelemon.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.littlelemon.data.PreferenceRepository
+import com.example.littlelemon.ui.screen.HomeScreen
+import com.example.littlelemon.ui.screen.OnBoarding
+import com.example.littlelemon.ui.screen.ProfileScreen
 
 @Composable
 fun Navigation(navHostController: NavHostController, preferenceRepository: PreferenceRepository) {

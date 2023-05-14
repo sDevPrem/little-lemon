@@ -1,4 +1,4 @@
-package com.example.littlelemon.viewmodel
+package com.example.littlelemon.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

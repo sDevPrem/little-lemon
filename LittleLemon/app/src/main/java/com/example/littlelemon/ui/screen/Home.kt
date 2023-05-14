@@ -1,4 +1,4 @@
-package com.example.littlelemon
+package com.example.littlelemon.ui.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -51,10 +51,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.littlelemon.R
 import com.example.littlelemon.data.model.MenuItemLocal
 import com.example.littlelemon.data.model.util.Result
+import com.example.littlelemon.ui.navigation.Destinations
 import com.example.littlelemon.ui.theme.app.AppTheme
-import com.example.littlelemon.viewmodel.HomeVM
+import com.example.littlelemon.ui.viewmodel.HomeVM
 
 @Composable
 fun HomeScreen(navController: NavController, homeVM: HomeVM = viewModel()) {

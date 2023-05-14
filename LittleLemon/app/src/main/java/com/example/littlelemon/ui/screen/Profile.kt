@@ -1,4 +1,4 @@
-package com.example.littlelemon
+package com.example.littlelemon.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -25,9 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.littlelemon.R
 import com.example.littlelemon.data.model.User
+import com.example.littlelemon.ui.navigation.Destinations
 import com.example.littlelemon.ui.theme.app.AppTheme
-import com.example.littlelemon.viewmodel.ProfileVM
+import com.example.littlelemon.ui.viewmodel.ProfileVM
 
 @Composable
 fun ProfileScreen(navController: NavController, profileVm: ProfileVM = viewModel()) {
