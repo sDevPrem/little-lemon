@@ -7,11 +7,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class AppRepository(
-    context: Context,
+class AppRepository private constructor(
     private val littleLemonApi: LittleLemonApi,
-    private val appDatabase: AppDatabase = AppDatabase.getDatabase(context)
+    private val appDatabase: AppDatabase
 ) {
+
+    companion object {
+        private var INSTANCE: AppRepository? = null
+
+        fun getInstance(
+            context: Context,
+            littleLemonApi: LittleLemonApi = LittleLemonApi(),
+            appDatabase: AppDatabase = AppDatabase.getDatabase(context)
+        ): AppRepository {
+            if (INSTANCE == null) {
+                synchronized(this) {
+                    INSTANCE = AppRepository(
+                        littleLemonApi = littleLemonApi,
+                        appDatabase = appDatabase
+                    )
+                }
+            }
+            return INSTANCE!!
+        }
+    }
+
     fun getMenuData() = flow {
         //get the items from the local
         var localItems = appDatabase.getMenuItemDao().getMenuItems()
