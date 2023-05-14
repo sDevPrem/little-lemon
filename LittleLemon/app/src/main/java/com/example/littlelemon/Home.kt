@@ -75,6 +75,7 @@ fun HomeScreenUI(
     navigateToProfile: () -> Unit
 ) {
     var query by rememberSaveable { mutableStateOf("") }
+    var selectedCategory by rememberSaveable { mutableStateOf<String?>(null) }
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -93,7 +94,9 @@ fun HomeScreenUI(
         stickyHeader(
             key = "sticky_header"
         ) {
-            MenuBreakDown()
+            MenuBreakDown(selectedCategory) {
+                selectedCategory = it
+            }
             Spacer(modifier = Modifier.height(16.dp))
         }
 
@@ -101,8 +104,12 @@ fun HomeScreenUI(
             items(
                 items = result.data
                     .filter {
-                        query.isBlank() ||
-                                it.title.contains(other = query, ignoreCase = true)
+                        (query.isBlank() || it.title.contains(other = query, ignoreCase = true)) &&
+                                (selectedCategory == null || it.category.contains(
+                                    other = selectedCategory!!,
+                                    ignoreCase = true
+                                ))
+
                     },
                 key = { item -> item.id }
             ) {
@@ -270,8 +277,17 @@ fun HeroSection(onSearch: (String) -> Unit) {
     }
 }
 
+/**
+ * @param selectedCategory the name of the selected category, null if no category is selected.
+ * @param onCategorySelectionChange callback called when category selection is change.
+ * If a category is selected then selected category name comes as the parameter
+ * else null if the previously selected category is unselected.
+ */
 @Composable
-fun MenuBreakDown() {
+fun MenuBreakDown(
+    selectedCategory: String?,
+    onCategorySelectionChange: (selectedCategory: String?) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -293,10 +309,26 @@ fun MenuBreakDown() {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            CategoryItem(text = stringResource(R.string.starters_category_label))
-            CategoryItem(text = stringResource(R.string.mains_category_label))
-            CategoryItem(text = stringResource(R.string.desserts_category_label))
-            CategoryItem(text = stringResource(R.string.slides_category_label))
+            CategoryItem(
+                categoryName = stringResource(R.string.starters_category_label),
+                selectedCategory,
+                onCategorySelectionChange
+            )
+            CategoryItem(
+                categoryName = stringResource(R.string.mains_category_label),
+                selectedCategory,
+                onCategorySelectionChange
+            )
+            CategoryItem(
+                categoryName = stringResource(R.string.desserts_category_label),
+                selectedCategory,
+                onCategorySelectionChange
+            )
+            CategoryItem(
+                categoryName = stringResource(R.string.slides_category_label),
+                selectedCategory,
+                onCategorySelectionChange
+            )
         }
         Divider(
             modifier = Modifier
@@ -307,18 +339,38 @@ fun MenuBreakDown() {
     }
 }
 
+/**
+ * @param categoryName category Name to be displayed.
+ * @param selectedCategory selected Category name. Null if no category is selected.
+ * @param onCheckedChange callback called when it is clicked.
+ * If this category is not the [selectedCategory] then the [categoryName]
+ * name comes as a parameter else null.
+ */
 @Composable
-fun CategoryItem(text: String) {
+fun CategoryItem(
+    categoryName: String,
+    selectedCategory: String?,
+    onCheckedChange: (category: String?) -> Unit
+) {
     Text(
-        text = text,
+        text = categoryName,
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 8.dp)
             .background(
-                color = AppTheme.color.primary1.copy(alpha = 0.2F),
+                color = if (categoryName == selectedCategory) AppTheme.color.primary1 else AppTheme.color.primary1.copy(
+                    alpha = 0.2F
+                ),
                 shape = MaterialTheme.shapes.medium
             )
-            .padding(8.dp),
-        color = AppTheme.color.primary1,
+            .padding(8.dp)
+            .clickable {
+                onCheckedChange(
+                    if (selectedCategory == categoryName)
+                        null
+                    else categoryName
+                )
+            },
+        color = if (categoryName == selectedCategory) AppTheme.color.secondary2 else AppTheme.color.primary1,
         style = AppTheme.typography.sectionCategory
     )
 }
