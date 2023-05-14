@@ -74,6 +74,7 @@ fun HomeScreenUI(
     onRetry: () -> Unit,
     navigateToProfile: () -> Unit
 ) {
+    var query by rememberSaveable { mutableStateOf("") }
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -84,7 +85,9 @@ fun HomeScreenUI(
             Column {
                 NavBar(navigateToProfile)
                 Spacer(modifier = Modifier.height(8.dp))
-                HeroSection()
+                HeroSection {
+                    query = it
+                }
             }
         }
         stickyHeader(
@@ -96,7 +99,11 @@ fun HomeScreenUI(
 
         if (result is Result.Success)
             items(
-                items = result.data,
+                items = result.data
+                    .filter {
+                        query.isBlank() ||
+                                it.title.contains(other = query, ignoreCase = true)
+                    },
                 key = { item -> item.id }
             ) {
                 MenuItem(item = it)
@@ -172,7 +179,7 @@ fun NavBar(navigateToProfile: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnsafeOptInUsageError")
 @Composable
-fun HeroSection() {
+fun HeroSection(onSearch: (String) -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     Column(
         modifier = Modifier
@@ -223,7 +230,11 @@ fun HeroSection() {
             modifier = Modifier
                 .fillMaxWidth(),
             value = query,
-            onValueChange = { query = it },
+            onValueChange = {
+                query = it
+                if (it.isBlank())
+                    onSearch(it)
+            },
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.home_search_bar_hint),
@@ -245,7 +256,7 @@ fun HeroSection() {
                 imeAction = ImeAction.Search,
             ),
             keyboardActions = KeyboardActions(
-                onSearch = {/*TODO: SEARCH QUERY*/ }
+                onSearch = { onSearch(query) }
             ),
             shape = MaterialTheme.shapes.medium,
             colors = TextFieldDefaults.textFieldColors(
