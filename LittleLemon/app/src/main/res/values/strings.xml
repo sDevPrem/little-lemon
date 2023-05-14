@@ -31,7 +31,7 @@
     <string name="home_hero_section_subtitle">Chicago</string>
     <string name="home_hero_section_about">We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</string>
     <string name="home_search_bar_hint">Search Food Items</string>
-    <string name="home_menu_break_down_title">Order for delivery</string>
+    <string name="home_menu_break_down_title">ORDER FOR DELIVERY!</string>
     <string name="starters_category_label">Starters</string>
     <string name="mains_category_label">Mains</string>
     <string name="desserts_category_label">Desserts</string>

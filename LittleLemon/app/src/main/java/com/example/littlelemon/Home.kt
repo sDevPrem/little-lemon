@@ -5,7 +5,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -44,6 +42,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -206,7 +205,7 @@ fun HeroSection() {
                     .width(0.dp)
                     .align(Alignment.CenterVertically),
                 text = stringResource(R.string.home_hero_section_about),
-                style = AppTheme.typography.paragraph,
+                style = AppTheme.typography.highlight,
                 color = AppTheme.color.highlight1
             )
             Image(
@@ -280,10 +279,8 @@ fun MenuBreakDown() {
         )
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
-                .padding(start = 8.dp),
-            horizontalArrangement = Arrangement.Center
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             CategoryItem(text = stringResource(R.string.starters_category_label))
             CategoryItem(text = stringResource(R.string.mains_category_label))
@@ -338,6 +335,8 @@ fun MenuItem(item: MenuItemLocal) {
             ) {
                 Text(
                     text = item.description,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
                     style = AppTheme.typography.paragraph,
                     modifier = Modifier
                         .padding(top = 8.dp, end = 8.dp, bottom = 8.dp)
