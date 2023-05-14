@@ -37,5 +37,6 @@
     <string name="desserts_category_label">Desserts</string>
     <string name="slides_category_label">Slides</string>
     <string name="menu_item_price">$ %1s</string>
+    <string name="no_menu_item_found_msg">Sorry! We currently don\'t have the requested item.</string>
 
 </resources>

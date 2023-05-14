@@ -42,6 +42,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -100,27 +101,55 @@ fun HomeScreenUI(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        if (result is Result.Success)
-            items(
-                items = result.data
-                    .filter {
-                        (query.isBlank() || it.title.contains(other = query, ignoreCase = true)) &&
-                                (selectedCategory == null || it.category.contains(
-                                    other = selectedCategory!!,
-                                    ignoreCase = true
-                                ))
-
-                    },
-                key = { item -> item.id }
-            ) {
-                MenuItem(item = it)
+        if (result is Result.Success) {
+            //if user has searched something or if user has selected some
+            //category then filter
+            val filteredItem =
+                if (query.isNotBlank() || selectedCategory != null)
+                    result.data
+                        .filter {
+                            //if query is blank then don't filter by query
+                            (query.isBlank() || it.title.contains(
+                                other = query,
+                                ignoreCase = true
+                            )) &&
+                                    //if no category is selected then don't filter by category
+                                    (selectedCategory == null || it.category.contains(
+                                        other = selectedCategory!!,
+                                        ignoreCase = true
+                                    ))
+                        }
+                else result.data
+            if (filteredItem.isNotEmpty()) {
+                items(
+                    items = filteredItem,
+                    key = { item -> item.id }
+                ) {
+                    MenuItem(item = it)
+                }
+            } else {
+                item(key = "no_item_found_msg") {
+                    NoItemFoundMsg()
+                }
             }
-        else item(
+        } else item(
             key = "empty_screen"
         ) {
             EmptyScreen(result = result, onRetry)
         }
     }
+}
+
+@Composable
+fun NoItemFoundMsg() {
+    Text(
+        text = stringResource(R.string.no_menu_item_found_msg),
+        style = AppTheme
+            .typography.leadText,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .padding(16.dp)
+    )
 }
 
 @Composable
