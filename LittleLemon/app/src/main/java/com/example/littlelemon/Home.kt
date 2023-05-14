@@ -51,7 +51,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.littlelemon.data.model.MenuItem
+import com.example.littlelemon.data.model.MenuItemLocal
 import com.example.littlelemon.data.model.util.Result
 import com.example.littlelemon.ui.theme.app.AppTheme
 import com.example.littlelemon.viewmodel.HomeVM
@@ -71,7 +71,7 @@ fun HomeScreen(navController: NavController, homeVM: HomeVM = viewModel()) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreenUI(
-    result: Result<List<MenuItem>>,
+    result: Result<List<MenuItemLocal>>,
     onRetry: () -> Unit,
     navigateToProfile: () -> Unit
 ) {
@@ -317,7 +317,7 @@ fun CategoryItem(text: String) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun MenuItem(item: MenuItem) {
+fun MenuItem(item: MenuItemLocal) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -368,7 +368,7 @@ fun MenuItem(item: MenuItem) {
 @Composable
 @Preview(showBackground = true)
 fun HomeScreenPreview() {
-    val item = MenuItem(
+    val item = MenuItemLocal(
         image = "",
         price = "12.99",
         description = "The famous greek salad of crispy lettuce, peppers, olives and our Chicago",
