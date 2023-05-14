@@ -60,7 +60,6 @@ data class AppTypography(
         fontFamily = karla,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 1.5.sp
     ),
     val highlight : TextStyle = TextStyle(
         fontFamily = karla,
