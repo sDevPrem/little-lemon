@@ -188,7 +188,8 @@ fun OnBoarding(navController: NavController, preferenceRepository: PreferenceRep
 @Composable
 fun OnBoardingPreview() {
     OnBoarding(
-        navController = rememberNavController(), preferenceRepository = PreferenceRepository(
+        navController = rememberNavController(),
+        preferenceRepository = PreferenceRepository.getPreferenceRepository(
             LocalContext.current
         )
     )

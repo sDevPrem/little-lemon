@@ -18,7 +18,8 @@ import com.example.littlelemon.ui.theme.app.AppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val preferenceRepository = PreferenceRepository(this.applicationContext)
+        val preferenceRepository =
+            PreferenceRepository.getPreferenceRepository(this.applicationContext)
         setContent {
             AppTheme {
                 // A surface container using the 'background' color from the theme
@@ -47,7 +48,7 @@ fun GreetingPreview() {
             val navHostController = rememberNavController()
             Navigation(
                 navHostController = navHostController,
-                PreferenceRepository(LocalContext.current)
+                PreferenceRepository.getPreferenceRepository(LocalContext.current)
             )
         }
     }

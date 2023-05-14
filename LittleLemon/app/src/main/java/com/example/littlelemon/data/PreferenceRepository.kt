@@ -6,11 +6,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
-class PreferenceRepository(
+class PreferenceRepository private constructor(
     context: Context
 ) {
     private val userPref =
         context.getSharedPreferences(USER_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
+
     companion object {
         const val USER_PREFERENCE_FILE_KEY = "user_preference_file"
 
@@ -18,6 +19,17 @@ class PreferenceRepository(
         const val USER_LAST_NAME = "user_second_name"
         const val USER_EMAIL = "user_email"
         const val IS_USER_LOGGED_IN = "is_user_logged_in"
+
+        private var INSTANCE: PreferenceRepository? = null
+
+        fun getPreferenceRepository(context: Context): PreferenceRepository {
+            if (INSTANCE == null) {
+                synchronized(this) {
+                    INSTANCE = PreferenceRepository(context)
+                }
+            }
+            return INSTANCE!!
+        }
     }
 
     suspend fun saveUser(user: User): Boolean = withContext(Dispatchers.IO) {

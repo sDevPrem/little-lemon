@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class ProfileVM(application: Application) : AndroidViewModel(application = application) {
-    private val preferenceRepository = PreferenceRepository(application.applicationContext)
+    private val preferenceRepository =
+        PreferenceRepository.getPreferenceRepository(application.applicationContext)
     val user = preferenceRepository.getUser()
         .stateIn(
             viewModelScope,
