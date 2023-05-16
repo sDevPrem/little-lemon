@@ -2,6 +2,11 @@
 
 Little lemon is the Capstone project for Meta's Android Developer Course on Coursera made in Kotlin.
 
+## Screenshot
+
+| ![on_board_screenshot](image/screenshot_on_board_screen.png) | ![home_screenshot](image/screenshot_home_screen.png) | ![profile_screenshot](image/screenshot_profile_screen.png) |
+|--------------------------------------------------------------|------------------------------------------------------|------------------------------------------------------------|
+
 ## Built With
 
 **[Kotlin:](https://kotlinlang.org/)** As the programming language.
