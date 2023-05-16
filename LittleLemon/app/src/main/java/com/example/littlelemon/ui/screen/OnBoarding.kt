@@ -88,20 +88,20 @@ fun OnBoarding(navController: NavController, preferenceRepository: PreferenceRep
                 .fillMaxWidth()
                 .padding(16.dp, 0.dp, 16.dp, 16.dp),
             value = firstName,
-            maxLines = 1,
-            onValueChange = {firstName = it},
+            singleLine = true,
+            onValueChange = { firstName = it },
             label = {
                 Text(text = stringResource(R.string.on_boarding_form_first_name_label))
             },
 
-        )
+            )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp, 16.dp),
             value = lastName,
-            onValueChange = {lastName = it},
-            maxLines = 1,
+            onValueChange = { lastName = it },
+            singleLine = true,
             label = {
                 Text(text = stringResource(R.string.on_boarding_form_last_name_label))
             }
@@ -111,8 +111,8 @@ fun OnBoarding(navController: NavController, preferenceRepository: PreferenceRep
                 .fillMaxWidth()
                 .padding(16.dp, 16.dp),
             value = email,
-            maxLines = 1,
-            onValueChange = {email = it},
+            singleLine = true,
+            onValueChange = { email = it },
             label = {
                 Text(text = stringResource(R.string.on_boarding_form_email_label))
             },
