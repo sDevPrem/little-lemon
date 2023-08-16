@@ -4,8 +4,8 @@ Little lemon is the Capstone project for Meta's Android Developer Course on Cour
 
 ## Screenshot
 
-| ![on_board_screenshot](image/screenshot_on_board_screen.png) | ![home_screenshot](image/screenshot_home_screen.png) | ![profile_screenshot](image/screenshot_profile_screen.png) |
-|--------------------------------------------------------------|------------------------------------------------------|------------------------------------------------------------|
+| ![screenshot_on_board_screen](https://github.com/sDevPrem/little-lemon/assets/130966261/57f535ef-e378-42a5-b98b-b8bc51605f25) | ![screenshot_home_screen](https://github.com/sDevPrem/little-lemon/assets/130966261/4ce16a10-c0a4-43bb-b3f9-e8dc084bb154) | ![screenshot_profile_screen](https://github.com/sDevPrem/little-lemon/assets/130966261/21355e52-3b5c-4f49-a043-c6e56f94bff6) |
+|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 
 ## Built With
 
